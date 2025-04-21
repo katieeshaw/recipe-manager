@@ -1,3 +1,5 @@
+# This file would define your database models, typically using SQLAlchemy (or another ORM) to represent tables in your database.
+
 from sqlalchemy import Column, Integer, String
 from .database import Base
 

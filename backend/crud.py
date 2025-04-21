@@ -1,3 +1,5 @@
+# This file should contain the CRUD (Create, Read, Update, Delete) operations for interacting with the database. Each function here would map to a specific action on your database models.
+
 from sqlalchemy.orm import Session
 from . import models, schemas, auth
 
@@ -8,3 +10,6 @@ def create_user(db: Session, user: schemas.UserCreate):
     db.commit()
     db.refresh(db_user)
     return db_user
+
+def get_all_users(db: Session):
+    return db.query(models.User).all()

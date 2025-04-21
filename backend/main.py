@@ -1,3 +1,5 @@
+# This is the entry point of your FastAPI application. It would typically include the app initialization, routing, and any middleware or exception handlers.
+
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from . import models, schemas, crud, auth, database
@@ -35,3 +37,15 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
 @app.get("/me", response_model=schemas.UserOut)
 def read_users_me(current_user: models.User = Depends(auth.get_current_user)):
     return current_user
+
+def get_db():
+    db = database.SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+@app.get("/users")
+def read_users(db: Session = Depends(get_db)):
+    users = crud.get_all_users(db)
+    return users

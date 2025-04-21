@@ -1,3 +1,5 @@
+# This file is likely handling authentication-related functionality such as user login, registration, token generation, and validation (e.g., JWT tokens).
+
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
@@ -5,10 +7,11 @@ from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from . import schemas, models, database
 from sqlalchemy.orm import Session
+import os
 
-SECRET_KEY = "supersecretkey"  # move to env var
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
+ACCESS_TOKEN_EXPIRE_MINUTES = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
