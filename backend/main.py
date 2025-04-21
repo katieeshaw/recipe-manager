@@ -8,6 +8,9 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from jose import jwt, JWTError
 from fastapi.responses import JSONResponse
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI()
 

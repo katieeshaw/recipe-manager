@@ -8,6 +8,9 @@ from datetime import datetime, timedelta
 from . import schemas, models, database
 from sqlalchemy.orm import Session
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
@@ -29,11 +32,13 @@ def verify_password(plain, hashed):
 def get_password_hash(password):
     return pwd_context.hash(password)
 
-def create_access_token(data: dict, expires_delta: timedelta | None = None):
+def create_access_token(data: dict, expires_delta: timedelta = timedelta(minutes=15)):
     to_encode = data.copy()
-    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=15))
+    expire = datetime.utcnow() + expires_delta
     to_encode.update({"exp": expire})
-    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
 
 def create_refresh_token(data: dict):
     to_encode = data.copy()
