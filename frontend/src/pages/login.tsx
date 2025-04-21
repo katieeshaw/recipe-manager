@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
+import { getToken, isTokenValid } from '../utils/auth';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -10,20 +11,28 @@ const Login: React.FC = () => {
   const [isSignup, setIsSignup] = useState(false);
   const navigate = useNavigate();
 
+  // Redirect to /home if already logged in
+  useEffect(() => {
+    const token = getToken();
+    if (isTokenValid(token)) {
+      navigate('/home');
+    }
+  }, [navigate]);
+
   // Handles login form submission
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
-  
+
     try {
       const formData = new FormData();
       formData.append('username', email);
       formData.append('password', password);
-  
+
       const res = await axios.post('http://localhost:8000/login', formData, {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       });
-  
+
       const token = res.data.access_token;
       localStorage.setItem('token', token);
       navigate('/home');
@@ -44,7 +53,6 @@ const Login: React.FC = () => {
         password,
       });
 
-      // After successful signup, automatically log the user in
       const token = res.data.access_token;
       localStorage.setItem('token', token);
       navigate('/home');
