@@ -14,7 +14,11 @@ const Home: React.FC = () => {
 
   return (
     <div className="background">
-      <div className="home-container">
+      <div className="home-container-left">
+        <h1 className="home-title">Welcome to MealTime</h1>
+        <img src="/login-illustration.png" alt="Login Illustration" className="login-illustration" />
+      </div>
+      <div className="home-container-right">
         <h1 className="home-title">Your Meal Plan for {today}</h1>
         <div className="meal-card">
           {mealSections.map((meal) => (

@@ -13,6 +13,7 @@ const Navbar: React.FC = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <div className="navbar-logo">
+        <img src="/logo.png" alt="MealTime Logo" className="navbar-logo" />
           <a href="/home">MealTime</a>
         </div>
         <ul className="navbar-links">

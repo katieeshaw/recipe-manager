@@ -23,6 +23,12 @@
     font-size: 1.5rem;
     font-weight: bold;
   }
+
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+    width: 20%;
+  }
   
   .navbar-links {
     list-style: none;

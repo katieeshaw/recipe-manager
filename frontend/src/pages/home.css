@@ -1,13 +1,27 @@
 .background {
     background-color: #f5f9f8;
-    min-height: 100vh;
+    display: flex;
+    height: 100vh;
     width: 100%;
 }
 
-.home-container {
+.home-container-left,
+.home-container-right {
+  flex: 1;
+}
+
+.home-container-right {
     padding-top: 1rem;
-    max-width: 60%;
+    max-width: 100%;
     margin: 0 auto;
+    padding: 0rem 5rem;
+  }
+
+  .home-container-left {
+    padding-top: 1rem;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 2rem 5rem;
   }
   
   .home-title {
